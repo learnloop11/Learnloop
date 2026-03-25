@@ -1,0 +1,145 @@
+/* --- Global Styles --- */
+body {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  background-color: #f4f7f8; /* Light neutral background to make cards pop */
+  color: #333;
+}
+
+/* --- Header & Branding --- */
+header {
+  /* Linear gradient derived from the LearnLoop logo */
+  background: linear-gradient(135deg, #2b95ce 0%, #64d3bf 100%);
+  color: white;
+  padding: 50px 20px 80px 20px; /* Extra bottom padding for the overlap effect */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.header-logo {
+  max-width: 220px;
+  height: auto;
+  background: white; /* Contains the logo's white background naturally */
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  margin-bottom: 15px;
+}
+
+header h1 {
+  margin: 10px 0 5px 0;
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+}
+
+header p {
+  font-size: 1.1rem;
+  font-weight: 300;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* --- Main Layout Container --- */
+.container {
+  display: flex;
+  flex-wrap: wrap; /* Allows cards to wrap on smaller screens */
+  justify-content: center;
+  gap: 30px;
+  margin: -40px auto 60px; /* Negative margin pulls cards up over the header gradient */
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+/* --- Card Design --- */
+.card {
+  background: white;
+  border: none;
+  border-radius: 16px;
+  padding: 40px 25px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  flex: 1;
+  min-width: 280px; /* Minimum width before wrapping */
+  max-width: 360px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(43, 149, 206, 0.25);
+}
+
+.card h2 {
+  color: #2b95ce;
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.card p {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* --- Buttons (For Course Pages) --- */
+.card button {
+  background: #2b95ce;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  margin: 8px 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.3s, transform 0.2s;
+  flex: 1;
+}
+
+.card button:hover {
+  background: #64d3bf;
+  transform: scale(1.03);
+}
+
+/* --- Footer --- */
+footer {
+  margin-top: 40px;
+  padding: 50px 20px;
+  background-color: white;
+  border-top: 1px solid #eef2f3;
+}
+
+footer p {
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: #555;
+}
+
+footer a {
+  text-decoration: none;
+  color: #2b95ce;
+  font-weight: bold;
+  margin: 0 15px;
+  transition: color 0.3s;
+}
+
+footer a:hover {
+  color: #64d3bf;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 600px) {
+  .container {
+    margin-top: 20px; /* Remove overlap on small screens for better spacing */
+  }
+  
+  .card {
+    min-width: 100%;
+  }
+}
