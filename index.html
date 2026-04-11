@@ -1,39 +1,484 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>LearnLoop</title>
-  <link rel="stylesheet" href="style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LearnLoop — Loop in. Level up.</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #2B7FD4;
+    --teal: #3DA8A8;
+    --green: #4CAF7D;
+    --navy: #2C4770;
+    --light: #F4F7FA;
+    --white: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(43,127,212,0.1);
+    z-index: 100;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; }
+  .nav-logo img { height: 36px; border-radius: 8px; }
+  .nav-brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--navy); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--navy); font-size: 0.9rem; font-weight: 500; opacity: 0.7; transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 1; }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--blue), var(--teal));
+    color: white; border: none; padding: 0.6rem 1.4rem;
+    border-radius: 50px; font-size: 0.85rem; font-weight: 500;
+    cursor: pointer; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(43,127,212,0.3); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 7rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(43,127,212,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(76,175,125,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 60% 80%, rgba(61,168,168,0.06) 0%, transparent 50%);
+  }
+  .hero-content { position: relative; max-width: 780px; }
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(43,127,212,0.1), rgba(76,175,125,0.1));
+    border: 1px solid rgba(43,127,212,0.2);
+    color: var(--blue); font-size: 0.8rem; font-weight: 500;
+    padding: 0.4rem 1rem; border-radius: 50px; margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 800; line-height: 1.1;
+    color: var(--navy); margin-bottom: 1.2rem;
+  }
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--blue), var(--teal), var(--green));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    font-size: 1.1rem; color: #5a6d8a; line-height: 1.7;
+    max-width: 560px; margin: 0 auto 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--blue), var(--teal));
+    color: white; padding: 0.85rem 2rem; border-radius: 50px;
+    text-decoration: none; font-weight: 500; font-size: 0.95rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(43,127,212,0.25);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(43,127,212,0.35); }
+  .btn-secondary {
+    background: transparent; color: var(--navy);
+    padding: 0.85rem 2rem; border-radius: 50px;
+    border: 1.5px solid rgba(44,71,112,0.2);
+    text-decoration: none; font-weight: 500; font-size: 0.95rem;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--blue); color: var(--blue); }
+
+  /* STATS */
+  .stats {
+    padding: 3rem 2rem;
+    background: var(--light);
+  }
+  .stats-inner {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem; text-align: center;
+  }
+  .stat-item {}
+  .stat-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem; font-weight: 800;
+    background: linear-gradient(135deg, var(--blue), var(--green));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label { font-size: 0.85rem; color: #5a6d8a; margin-top: 4px; }
+
+  /* DOMAINS */
+  .domains {
+    padding: 5rem 2rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .section-header { text-align: center; margin-bottom: 3rem; }
+  .section-tag {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 0.8rem;
+  }
+  .section-header h2 {
+    font-family: 'Syne', sans-serif; font-size: 2rem;
+    font-weight: 700; color: var(--navy);
+  }
+  .domain-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .domain-card {
+    background: var(--white);
+    border: 1px solid rgba(43,127,212,0.12);
+    border-radius: 20px; padding: 2rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .domain-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+  }
+  .domain-card.cyber::before { background: linear-gradient(90deg, var(--blue), var(--teal)); }
+  .domain-card.aiml::before { background: linear-gradient(90deg, var(--teal), var(--green)); }
+  .domain-card.cad::before { background: linear-gradient(90deg, var(--green), var(--blue)); }
+  .domain-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(43,127,212,0.12); }
+  .domain-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+  .domain-card h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .domain-card p { font-size: 0.9rem; color: #5a6d8a; line-height: 1.6; margin-bottom: 1.2rem; }
+  .tools-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tool-tag {
+    font-size: 0.75rem; padding: 3px 10px; border-radius: 20px;
+    font-weight: 500;
+  }
+  .cyber .tool-tag { background: rgba(43,127,212,0.1); color: var(--blue); }
+  .aiml .tool-tag { background: rgba(61,168,168,0.1); color: var(--teal); }
+  .cad .tool-tag { background: rgba(76,175,125,0.1); color: var(--green); }
+
+  /* WHY */
+  .why {
+    padding: 5rem 2rem;
+    background: var(--light);
+  }
+  .why-inner { max-width: 900px; margin: 0 auto; }
+  .why-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .why-card {
+    background: var(--white); border-radius: 16px;
+    padding: 1.5rem; text-align: center;
+    border: 1px solid rgba(43,127,212,0.1);
+  }
+  .why-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+  .why-card h4 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .why-card p { font-size: 0.85rem; color: #5a6d8a; line-height: 1.5; }
+
+  /* COLLEGES */
+  .colleges {
+    padding: 5rem 2rem;
+    max-width: 900px; margin: 0 auto; text-align: center;
+  }
+  .college-tags { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 2rem; }
+  .college-tag {
+    background: var(--light); border: 1px solid rgba(43,127,212,0.15);
+    color: var(--navy); padding: 0.5rem 1.2rem;
+    border-radius: 50px; font-size: 0.85rem; font-weight: 500;
+  }
+
+  /* ABOUT */
+  .about {
+    padding: 5rem 2rem;
+    background: var(--light);
+  }
+  .about-inner {
+    max-width: 800px; margin: 0 auto; text-align: center;
+  }
+  .about-inner p {
+    font-size: 1rem; color: #5a6d8a; line-height: 1.8;
+    margin-top: 1.5rem;
+  }
+  .team { display: flex; gap: 1.5rem; justify-content: center; margin-top: 2.5rem; flex-wrap: wrap; }
+  .team-card {
+    background: var(--white); border-radius: 16px;
+    padding: 1.5rem 2rem; text-align: center;
+    border: 1px solid rgba(43,127,212,0.1); min-width: 180px;
+  }
+  .team-avatar {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--teal));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    color: white; font-size: 1.1rem; margin: 0 auto 0.8rem;
+  }
+  .team-card h4 { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; }
+  .team-card p { font-size: 0.8rem; color: var(--teal); margin-top: 4px; }
+
+  /* CTA */
+  .cta {
+    padding: 5rem 2rem; text-align: center;
+  }
+  .cta-box {
+    max-width: 680px; margin: 0 auto;
+    background: linear-gradient(135deg, var(--navy), #1a3a6b);
+    border-radius: 24px; padding: 3rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  .cta-box::before {
+    content: ''; position: absolute;
+    top: -50%; right: -20%;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(76,175,125,0.1);
+  }
+  .cta-box h2 {
+    font-family: 'Syne', sans-serif; font-size: 1.8rem;
+    font-weight: 800; color: white; margin-bottom: 0.8rem;
+  }
+  .cta-box p { color: rgba(255,255,255,0.7); margin-bottom: 2rem; font-size: 0.95rem; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-white {
+    background: white; color: var(--navy);
+    padding: 0.85rem 2rem; border-radius: 50px;
+    text-decoration: none; font-weight: 600; font-size: 0.9rem;
+    transition: transform 0.2s;
+  }
+  .btn-white:hover { transform: translateY(-2px); }
+  .btn-outline-white {
+    background: transparent; color: white;
+    padding: 0.85rem 2rem; border-radius: 50px;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    text-decoration: none; font-weight: 500; font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+  .btn-outline-white:hover { border-color: white; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy); color: rgba(255,255,255,0.6);
+    text-align: center; padding: 2rem;
+    font-size: 0.85rem;
+  }
+  footer span { color: var(--teal); font-family: 'Syne', sans-serif; font-weight: 700; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-content > * { animation: fadeUp 0.6s ease both; }
+  .hero-badge { animation-delay: 0.1s; }
+  .hero h1 { animation-delay: 0.2s; }
+  .hero p { animation-delay: 0.3s; }
+  .hero-btns { animation-delay: 0.4s; }
+
+  @media (max-width: 600px) {
+    nav { padding: 1rem 1.2rem; }
+    .nav-links { display: none; }
+    .hero h1 { font-size: 2rem; }
+  }
+</style>
 </head>
 <body>
 
-  <header>
-    <img src="Logo.jpeg" alt="LearnLoop Logo" class="header-logo">
-  </header>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="Logo.jpeg" alt="LearnLoop Logo"/>
+    <span class="nav-brand">LearnLoop</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#domains">Domains</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#colleges">Colleges</a></li>
+  </ul>
+  <a href="https://forms.gle/vY9KvRExL4yrFzga9" target="_blank" class="nav-cta">Register Free</a>
+</nav>
 
-  <div class="container">
-    <div class="card" onclick="goToPage('aiml')">
-      <h2>AI/ML</h2>
-      <p>Master the future of tech.</p>
-    </div>
-
-    <div class="card" onclick="goToPage('cad')">
-      <h2>CAD Tools</h2>
-      <p>Design with precision.</p>
-    </div>
-
-    <div class="card" onclick="goToPage('cybersecurity')">
-      <h2>Cyber Security</h2>
-      <p>Secure the digital world.</p>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Mysuru's Hands-On Tool Training Community</div>
+    <h1>Learn the tools.<br/><span>Land the job.</span></h1>
+    <p>LearnLoop bridges the gap between academic curriculum and industry-relevant tools. Free workshops on Cybersecurity, AI/ML and CAD — built for placement-ready engineers.</p>
+    <div class="hero-btns">
+      <a href="https://forms.gle/vY9KvRExL4yrFzga9" target="_blank" class="btn-primary">Register for Free Workshop</a>
+      <a href="https://chat.whatsapp.com/Et4ahNquyZk88mBlMqTwdC" target="_blank" class="btn-secondary">Join Community</a>
     </div>
   </div>
+</section>
 
-  <footer>
-    <p>Contact Us</p>
-    <a href="https://chat.whatsapp.com/Et4ahNquyZk88mBlMqTwdC">WhatsApp</a> | 
-    <a href="mailto:learnloop11@gmail.com">Email</a>
-  </footer>
+<!-- STATS -->
+<section class="stats">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-number">48+</div>
+      <div class="stat-label">Community Members</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">5+</div>
+      <div class="stat-label">Colleges Reached</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Domains Covered</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">Hands-On Learning</div>
+    </div>
+  </div>
+</section>
 
-  <script src="script.js"></script>
+<!-- DOMAINS -->
+<section class="domains" id="domains">
+  <div class="section-header">
+    <div class="section-tag">What We Teach</div>
+    <h2>Three domains. Real tools. Actual skills.</h2>
+  </div>
+  <div class="domain-grid">
+    <div class="domain-card cyber">
+      <div class="domain-icon">🔐</div>
+      <h3>Cybersecurity</h3>
+      <p>Learn the tools used by real security professionals. From network scanning to traffic analysis — hands-on from day one.</p>
+      <div class="tools-list">
+        <span class="tool-tag">Kali Linux</span>
+        <span class="tool-tag">Nmap</span>
+        <span class="tool-tag">Wireshark</span>
+        <span class="tool-tag">Hashcat</span>
+      </div>
+    </div>
+    <div class="domain-card aiml">
+      <div class="domain-icon">🤖</div>
+      <h3>AI & ML Tools</h3>
+      <p>Go beyond basic ChatGPT usage. Learn to use AI tools the way employers actually expect — productively and strategically.</p>
+      <div class="tools-list">
+        <span class="tool-tag">ChatGPT</span>
+        <span class="tool-tag">Gemini</span>
+        <span class="tool-tag">Teachable</span>
+        <span class="tool-tag">DALL-E 3</span>
+      </div>
+    </div>
+    <div class="domain-card cad">
+      <div class="domain-icon">📐</div>
+      <h3>CAD Tools</h3>
+      <p>Design with precision using industry-standard software. Essential for Mech, Civil and IP engineering students before placements.</p>
+      <div class="tools-list">
+        <span class="tool-tag">AutoCAD</span>
+        <span class="tool-tag">CATIA V5</span>
+        <span class="tool-tag">Solid Edge</span>
+        <span class="tool-tag">ANSYS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why">
+  <div class="why-inner">
+    <div class="section-header">
+      <div class="section-tag">Why LearnLoop</div>
+      <h2>Not another online course.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🎯</div>
+        <h4>No theory</h4>
+        <p>Every session is a live tool demo. You watch, you try, you learn.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💰</div>
+        <h4>Free to start</h4>
+        <p>Our intro workshops are completely free. No hidden charges.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🎓</div>
+        <h4>Placement focused</h4>
+        <p>Every tool we teach appears in real fresher job descriptions.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🤝</div>
+        <h4>Peer learning</h4>
+        <p>Learn from people who just figured it out — relatable and real.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLEGES -->
+<section class="colleges" id="colleges">
+  <div class="section-header">
+    <div class="section-tag">Our Reach</div>
+    <h2>Already trusted by students from</h2>
+  </div>
+  <div class="college-tags">
+    <span class="college-tag">JSS</span>
+    <span class="college-tag">VVCE</span>
+    <span class="college-tag">Hindustan College</span>
+    <span class="college-tag">SDM</span>
+    <span class="college-tag">VVEIT</span>
+    <span class="college-tag">And growing...</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="section-header">
+      <div class="section-tag">Who We Are</div>
+      <h2>Built by students, for students.</h2>
+    </div>
+    <p>We are LearnLoop — a Mysuru-based technical training initiative run by final year engineering students. We know what's missing between college and careers, because we lived it. So we built the bridge ourselves.</p>
+    <div class="team">
+      <div class="team-card">
+        <div class="team-avatar">RK</div>
+        <h4>Rishika KS</h4>
+        <p>Cybersecurity & AI/ML</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">VR</div>
+        <h4>Varsha R</h4>
+        <p>CAD Tools & Mech Design</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-box">
+    <h2>Ready to Loop in?</h2>
+    <p>Register for our next free workshop or join our WhatsApp community — and start building skills that actually matter.</p>
+    <div class="cta-btns">
+      <a href="https://forms.gle/vY9KvRExL4yrFzga9" target="_blank" class="btn-white">Register Free</a>
+      <a href="https://chat.whatsapp.com/Et4ahNquyZk88mBlMqTwdC" target="_blank" class="btn-outline-white">Join Community</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><span>LearnLoop</span> · Loop in. Level up. · learnloop11@gmail.com</p>
+  <p style="margin-top: 0.5rem;">© 2026 LearnLoop, Mysuru</p>
+</footer>
+
 </body>
 </html>
