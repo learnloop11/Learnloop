@@ -295,6 +295,146 @@
     .nav-links { display: none; }
     .hero h1 { font-size: 2rem; }
   }
+
+  /* WORKSHOP SECTION */
+  .workshops {
+  padding: 5rem 2rem;
+  background: var(--light);
+}
+ 
+.workshop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+ 
+.workshop-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 2rem;
+  position: relative;
+  border: 1px solid rgba(43,127,212,0.12);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+ 
+.workshop-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(43,127,212,0.12);
+}
+ 
+.free-card { border-top: 3px solid var(--green); }
+.paid-card { border-top: 3px solid var(--blue); }
+ 
+.workshop-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  width: fit-content;
+}
+ 
+.free-badge {
+  background: rgba(76,175,125,0.12);
+  color: var(--green);
+}
+ 
+.paid-badge {
+  background: rgba(43,127,212,0.1);
+  color: var(--blue);
+}
+ 
+.workshop-icon { font-size: 2rem; }
+ 
+.workshop-card h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+ 
+.workshop-card p {
+  font-size: 0.9rem;
+  color: #5a6d8a;
+  line-height: 1.6;
+}
+ 
+.workshop-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  background: var(--light);
+  border-radius: 12px;
+  padding: 1rem;
+}
+ 
+.workshop-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+ 
+.detail-label { color: #5a6d8a; }
+ 
+.detail-value {
+  font-weight: 500;
+  color: var(--navy);
+  text-align: right;
+}
+ 
+.free-price {
+  color: var(--green);
+  font-weight: 700;
+  font-size: 1rem;
+}
+ 
+.paid-price {
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 1rem;
+}
+ 
+.workshop-btn {
+  display: block;
+  text-align: center;
+  padding: 0.85rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: auto;
+}
+ 
+.free-btn {
+  background: linear-gradient(135deg, var(--green), var(--teal));
+  color: white;
+  box-shadow: 0 4px 16px rgba(76,175,125,0.25);
+}
+ 
+.free-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(76,175,125,0.35);
+}
+ 
+.paid-btn {
+  background: transparent;
+  color: var(--blue);
+  border: 1.5px solid var(--blue);
+}
+ 
+.paid-btn:hover {
+  background: var(--blue);
+  color: white;
+  transform: translateY(-2px);
+}
 </style>
 </head>
 <body>
@@ -307,6 +447,7 @@
   </div>
   <ul class="nav-links">
     <li><a href="#domains">Domains</a></li>
+    <li><a href="#workshops">Workshops</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#why">Why Us?</a></li>
   </ul>
@@ -319,7 +460,7 @@
   <div class="hero-content">
     <div class="hero-badge">Hands-On Tool Training Community</div>
     <h1>LOOP IN<br/><span>LEVEL UP</span></h1>
-    <p>LearnLoop bridges the gap between academic curriculum and real industry tools. Free hands-on workshops on Cybersecurity, AI/ML and CAD — built for engineers who want to actually build things.</p>
+    <p>LearnLoop bridges the gap between academic curriculum and real industry tools. Free hands-on workshops on Cybersecurity, AI/ML and CAD — built for technical students who want to actually build things.</p>
     <div class="hero-btns">
       <a href="https://forms.gle/vY9KvRExL4yrFzga9" target="_blank" class="btn-primary">Register for Free Workshop</a>
       <a href="https://chat.whatsapp.com/Et4ahNquyZk88mBlMqTwdC" target="_blank" class="btn-secondary">Join Community</a>
@@ -438,6 +579,101 @@
     <span class="college-tag">And growing...</span>
   </div>
 </section> -->
+
+<!-- WORKSHOPS -->
+<section class="workshops" id="workshops">
+  <div class="section-header">
+    <div class="section-tag">Upcoming Workshops</div>
+    <h2>Learn by doing. Register and show up.</h2>
+  </div>
+ 
+  <div class="workshop-grid">
+ 
+    <!-- FREE WORKSHOP CARD -->
+    <div class="workshop-card free-card">
+      <div class="workshop-badge free-badge">FREE</div>
+      <div class="workshop-icon">🔐</div>
+      <h3>Cybersecurity Intro</h3>
+      <p>Your first step into the world of Cybersecurity. Live demos of real tools — no prior experience needed.</p>
+ 
+      <div class="workshop-details">
+        <div class="workshop-detail">
+          <span class="detail-label">📅 Date</span>
+          <span class="detail-value">Announcing soon</span>
+        </div>
+        <div class="workshop-detail">
+          <span class="detail-label">⏱ Duration</span>
+          <span class="detail-value">60 Minutes</span>
+        </div>
+        <div class="workshop-detail">
+          <span class="detail-label">📍 Platform</span>
+          <span class="detail-value">Google Meet (Online)</span>
+        </div>
+        <div class="workshop-detail">
+          <span class="detail-label">🛠 Tools</span>
+          <span class="detail-value">Nmap · Wireshark</span>
+        </div>
+        <div class="workshop-detail">
+          <span class="detail-label">💰 Price</span>
+          <span class="detail-value free-price">FREE</span>
+        </div>
+      </div>
+ 
+      <a href="https://forms.gle/LcZ8St6v6SEwf6Dv5" target="_blank" class="workshop-btn free-btn">
+        Register Now — It's Free
+      </a>
+    </div>
+ 
+   <!-- PAID WORKSHOP CARD -->
+<div class="workshop-card paid-card">
+  <div class="workshop-badge paid-badge">COMING SOON</div>
+  <div class="workshop-icon">🔐</div>
+  <h3>Nmap — Deep Dive Series</h3>
+  <p>A 3-day deep dive into Nmap. One tool. Three levels. Walk away truly knowing it — not just touched it.</p>
+
+  <div class="workshop-details">
+    <div class="workshop-detail">
+      <span class="detail-label">📅 Date</span>
+      <span class="detail-value">After Free Intro Session</span>
+    </div>
+    <div class="workshop-detail">
+      <span class="detail-label">⏱ Duration</span>
+      <span class="detail-value">3 Days × 1 Hour</span>
+    </div>
+    <div class="workshop-detail">
+      <span class="detail-label">📍 Platform</span>
+      <span class="detail-value">Google Meet (Online)</span>
+    </div>
+    <div class="workshop-detail">
+      <span class="detail-label">📚 Day 1</span>
+      <span class="detail-value">Foundations & Prerequisites</span>
+    </div>
+    <div class="workshop-detail">
+      <span class="detail-label">📚 Day 2</span>
+      <span class="detail-value">Basics & Core Usage</span>
+    </div>
+    <div class="workshop-detail">
+      <span class="detail-label">📚 Day 3</span>
+      <span class="detail-value">Advanced Techniques</span>
+    </div>
+    <div class="workshop-detail">
+      <span class="detail-label">💰 Per Session</span>
+      <span class="detail-value paid-price">₹49 only</span>
+    </div>
+    <div class="workshop-detail">
+      <span class="detail-label">🎯 Full Series</span>
+      <span class="detail-value paid-price">₹129 (save ₹18)</span>
+    </div>
+  </div>
+
+  <a href="https://chat.whatsapp.com/Et4ahNquyZk88mBlMqTwdC" 
+     target="_blank" class="workshop-btn paid-btn">
+    Join Community for Updates
+  </a>
+</div>
+ 
+  </div>
+</section>
 
 <!-- ABOUT -->
 <section class="about" id="about">
